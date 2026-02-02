@@ -1,0 +1,25 @@
+import { z } from 'zod';
+import { tableId } from './schemas.js';
+import { jsonResult } from '../utils/response.js';
+const outputSchema = z.object({
+    id: z.string(),
+    fields: z.record(z.string(), z.unknown()),
+});
+export function registerCreateRecord(server, ctx) {
+    server.registerTool('create_record', {
+        title: 'Create Record',
+        description: 'Create a new record in a table',
+        inputSchema: {
+            ...tableId,
+            fields: z.record(z.string(), z.unknown()).describe('The fields for the new record'),
+        },
+        outputSchema,
+        annotations: {
+            readOnlyHint: false,
+            destructiveHint: false,
+        },
+    }, async (args) => {
+        const record = await ctx.airtableService.createRecord(args.baseId, args.tableId, args.fields);
+        return jsonResult(outputSchema.parse({ id: record.id, fields: record.fields }));
+    });
+}

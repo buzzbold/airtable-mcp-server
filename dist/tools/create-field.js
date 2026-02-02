@@ -1,0 +1,26 @@
+import { z } from 'zod';
+import { tableId } from './schemas.js';
+import { jsonResult } from '../utils/response.js';
+const outputSchema = z.object({
+    field: z.record(z.string(), z.unknown()),
+});
+export function registerCreateField(server, ctx) {
+    server.registerTool('create_field', {
+        title: 'Create Field',
+        description: 'Create a new field in a table',
+        inputSchema: {
+            ...tableId,
+            nested: z.object({
+                field: z.record(z.string(), z.unknown()).describe('Field definition'),
+            }),
+        },
+        outputSchema,
+        annotations: {
+            readOnlyHint: false,
+            destructiveHint: false,
+        },
+    }, async (args) => {
+        const field = await ctx.airtableService.createField(args.baseId, args.tableId, args.nested.field);
+        return jsonResult(outputSchema.parse({ field }));
+    });
+}
