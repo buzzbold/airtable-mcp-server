@@ -6,12 +6,12 @@ startCommand:
     # JSON Schema defining the configuration options for the MCP.
     type: object
     required:
-      - airtableApiKey
+      - airtablePat
     properties:
-      airtableApiKey:
+      airtablePat:
         type: string
-        description: The API key for accessing the Airtable server.
+        description: The Airtable Personal Access Token for authentication.
   commandFunction:
     # A function that produces the CLI command to start the MCP on stdio.
     |-
-    (config) => ({command: 'node', args: ['dist/main.js'], env: {AIRTABLE_API_KEY: config.airtableApiKey}})
+    (config) => ({command: 'node', args: ['dist/main.js'], env: {AIRTABLE_PAT: config.airtablePat}})

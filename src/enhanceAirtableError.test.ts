@@ -21,7 +21,7 @@ describe('enhanceAirtableError', () => {
 			expect(error.message).toContain('https://airtable.com/create/tokens');
 		});
 
-		test('includes API key warnings for malformed keys', () => {
+		test('includes token warnings for malformed tokens', () => {
 			const error = new Error('Auth error');
 			const responseText = JSON.stringify({
 				error: {
@@ -33,8 +33,8 @@ describe('enhanceAirtableError', () => {
 
 			enhanceAirtableError(error, responseText, apiKey);
 
-			expect(error.message).toContain('API key seems too short');
-			expect(error.message).toContain('Expected one dot (.) in the API key, but found 0');
+			expect(error.message).toContain('Token seems too short');
+			expect(error.message).toContain('Expected one dot (.) in the token, but found 0');
 		});
 	});
 
@@ -56,7 +56,7 @@ describe('enhanceAirtableError', () => {
 			expect(error.message).toContain('ensure your token has permission to access that particular base');
 		});
 
-		test('includes API key warnings for invalid keys', () => {
+		test('includes token warnings for invalid tokens', () => {
 			const error = new Error('Permission error');
 			const responseText = JSON.stringify({
 				error: {
@@ -68,7 +68,7 @@ describe('enhanceAirtableError', () => {
 
 			enhanceAirtableError(error, responseText, apiKey);
 
-			expect(error.message).toContain('Expected one dot (.) in the API key, but found 5');
+			expect(error.message).toContain('Expected one dot (.) in the token, but found 5');
 		});
 	});
 
@@ -142,9 +142,9 @@ describe('enhanceAirtableError', () => {
 				const apiKey = 'nodotsinkey';
 
 				enhanceAirtableError(error, responseText, apiKey);
-				expect(error.message).toContain('Expected one dot (.) in the API key, but found 0');
-				expect(error.message).toContain('Make sure you\'ve copied the entire API key');
-				expect(error.message).toContain('API key seems too short');
+				expect(error.message).toContain('Expected one dot (.) in the token, but found 0');
+				expect(error.message).toContain('Make sure you\'ve copied the entire Personal Access Token');
+				expect(error.message).toContain('Token seems too short');
 			});
 
 			test('warns when API key has multiple dots', () => {
@@ -159,8 +159,8 @@ describe('enhanceAirtableError', () => {
 
 				enhanceAirtableError(error, responseText, apiKey);
 
-				expect(error.message).toContain('Expected one dot (.) in the API key, but found 3');
-				expect(error.message).toContain('Make sure you\'ve copied the API key correctly');
+				expect(error.message).toContain('Expected one dot (.) in the token, but found 3');
+				expect(error.message).toContain('Make sure you\'ve copied the token correctly');
 			});
 
 			test('does not warn for API key with exactly one dot', () => {
@@ -191,7 +191,7 @@ describe('enhanceAirtableError', () => {
 
 				enhanceAirtableError(error, responseText, apiKey);
 
-				expect(error.message).toContain('API key seems too short (10 characters)');
+				expect(error.message).toContain('Token seems too short (10 characters)');
 				expect(error.message).toContain('Personal Access Tokens are typically around 82 characters long');
 			});
 
@@ -207,7 +207,7 @@ describe('enhanceAirtableError', () => {
 
 				enhanceAirtableError(error, responseText, apiKey);
 
-				expect(error.message).toContain('API key seems too long (155 characters)');
+				expect(error.message).toContain('Token seems too long (155 characters)');
 				expect(error.message).toContain('Personal Access Tokens are typically around 82 characters long');
 			});
 
@@ -223,8 +223,8 @@ describe('enhanceAirtableError', () => {
 
 				enhanceAirtableError(error, responseText, apiKey);
 
-				expect(error.message).not.toContain('API key seems too short');
-				expect(error.message).not.toContain('API key seems too long');
+				expect(error.message).not.toContain('Token seems too short');
+				expect(error.message).not.toContain('Token seems too long');
 			});
 		});
 
@@ -241,9 +241,9 @@ describe('enhanceAirtableError', () => {
 
 				enhanceAirtableError(error, responseText, apiKey);
 
-				expect(error.message).toContain('old-style API key');
-				expect(error.message).toContain('API key seems too short');
-				expect(error.message).toContain('Expected one dot (.) in the API key, but found 0');
+				expect(error.message).toContain('deprecated API key');
+				expect(error.message).toContain('Token seems too short');
+				expect(error.message).toContain('Expected one dot (.) in the token, but found 0');
 			});
 		});
 	});
@@ -303,8 +303,8 @@ describe('enhanceAirtableError', () => {
 
 			enhanceAirtableError(error, responseText, apiKey);
 
-			expect(error.message).toContain('Expected one dot (.) in the API key, but found 0');
-			expect(error.message).toContain('API key seems too short (0 characters)');
+			expect(error.message).toContain('Expected one dot (.) in the token, but found 0');
+			expect(error.message).toContain('Token seems too short (0 characters)');
 		});
 	});
 });

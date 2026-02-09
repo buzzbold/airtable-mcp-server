@@ -27,13 +27,17 @@ export class AirtableService implements IAirtableService {
 	private readonly fetch: typeof fetch;
 
 	constructor(
-		apiKey: string = process.env.AIRTABLE_API_KEY || '',
+		apiKey: string = process.env.AIRTABLE_PAT || process.env.AIRTABLE_API_KEY || '',
 		baseUrl = 'https://api.airtable.com',
 		fetchFn: typeof fetch = fetch,
 	) {
 		this.apiKey = apiKey.trim();
 		if (!this.apiKey) {
-			throw new Error('airtable-mcp-server: No API key provided. Set it in the `AIRTABLE_API_KEY` environment variable');
+			throw new Error('airtable-mcp-server: No Personal Access Token provided. Set it in the `AIRTABLE_PAT` environment variable');
+		}
+
+		if (!process.env.AIRTABLE_PAT && process.env.AIRTABLE_API_KEY) {
+			console.warn('warning (airtable-mcp-server): The `AIRTABLE_API_KEY` environment variable is deprecated. Please rename it to `AIRTABLE_PAT`. See https://github.com/buzzbold/airtable-mcp-server#readme for details.');
 		}
 
 		this.baseUrl = baseUrl;

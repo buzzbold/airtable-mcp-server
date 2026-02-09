@@ -16,8 +16,8 @@ import * as path from 'node:path';
 import {createServer} from './index.js';
 import {AirtableService} from './airtableService.js';
 
-// Readonly API key for integration tests
-const AIRTABLE_API_KEY = 'patDAZ0YDQu7LqGSy.f4736bbdec6ea0cb8ba8b5dba80c53f8b80e46d78a046a1769e749596671e677';
+// Readonly token for integration tests
+const AIRTABLE_PAT = 'patDAZ0YDQu7LqGSy.f4736bbdec6ea0cb8ba8b5dba80c53f8b80e46d78a046a1769e749596671e677';
 
 type MCPClient = {
 	sendRequest: <T>(message: JSONRPCRequest) => Promise<T>;
@@ -107,7 +107,7 @@ describe.each([
 		name: 'InMemory Transport',
 		condition: true,
 		async createClient(): Promise<MCPClient> {
-			const airtableService = new AirtableService(AIRTABLE_API_KEY);
+			const airtableService = new AirtableService(AIRTABLE_PAT);
 			const server = createServer({airtableService});
 			const [serverTransport, clientTransport] = InMemoryTransport.createLinkedPair();
 			await server.connect(serverTransport);
@@ -157,7 +157,7 @@ describe.each([
 			// Start the MCP server from the extracted MCP Bundle
 			const serverProcess = spawn('node', [path.join(testDir, 'dist/main.js')], {
 				stdio: ['pipe', 'pipe', 'pipe'],
-				env: {...process.env, AIRTABLE_API_KEY},
+				env: {...process.env, AIRTABLE_PAT},
 			});
 
 			return createProcessBasedClient(
@@ -184,7 +184,7 @@ describe.each([
 				'--rm',
 				'-i',
 				'-e',
-				`AIRTABLE_API_KEY=${AIRTABLE_API_KEY}`,
+				`AIRTABLE_PAT=${AIRTABLE_PAT}`,
 				'airtable-mcp-server:test',
 			], {
 				stdio: ['pipe', 'pipe', 'pipe'],

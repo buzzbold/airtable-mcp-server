@@ -26,7 +26,7 @@
       "command": "node",
       "args": ["${__dirname}/dist/main.js"],
       "env": {
-        "AIRTABLE_API_KEY": "${user_config.api_key}"
+        "AIRTABLE_PAT": "${user_config.pat}"
       }
     }
   },
@@ -92,10 +92,10 @@
     }
   },
   "user_config": {
-    "api_key": {
+    "pat": {
       "type": "string",
-      "title": "Airtable API Key",
-      "description": "Your Airtable personal access token. Should have at least schema.bases:read and data.records:read permissions, and optionally the corresponding write permissions.",
+      "title": "Airtable Personal Access Token",
+      "description": "Your Airtable Personal Access Token. Should have at least schema.bases:read and data.records:read permissions, and optionally the corresponding write permissions. Create one at https://airtable.com/create/tokens/new.",
       "sensitive": true,
       "required": true
     }

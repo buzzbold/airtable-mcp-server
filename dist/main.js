@@ -17,7 +17,7 @@ function setupSignalHandlers(cleanup) {
 (async () => {
     const apiKey = process.argv.slice(2)[0];
     if (apiKey) {
-        console.warn('warning (airtable-mcp-server): Passing in an API key as a command-line argument is deprecated and may be removed in a future version. Instead, set the `AIRTABLE_API_KEY` environment variable. See https://github.com/domdomegg/airtable-mcp-server/blob/master/README.md#usage for an example with Claude Desktop.');
+        console.warn('warning (airtable-mcp-server): Passing in a token as a command-line argument is deprecated and may be removed in a future version. Instead, set the `AIRTABLE_PAT` environment variable. See https://github.com/buzzbold/airtable-mcp-server#readme for details.');
     }
     const transport = process.env.MCP_TRANSPORT || 'stdio';
     const airtableService = new AirtableService(apiKey);

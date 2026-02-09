@@ -39,27 +39,27 @@ export function enhanceAirtableError(error, responseText, apiKey) {
     }
 }
 /**
- * Validates API key format and provides guidance
+ * Validates token format and provides guidance
  */
 function getApiKeyWarnings(apiKey) {
     const warnings = [];
-    const dotsInApiKeyCount = apiKey.split('.').length - 1;
-    if (dotsInApiKeyCount === 0) {
-        warnings.push(`Expected one dot (.) in the API key, but found ${dotsInApiKeyCount}. Make sure you've copied the entire API key, not just the token ID.`);
+    const dotsCount = apiKey.split('.').length - 1;
+    if (dotsCount === 0) {
+        warnings.push(`Expected one dot (.) in the token, but found ${dotsCount}. Make sure you've copied the entire Personal Access Token, not just the token ID.`);
     }
-    if (dotsInApiKeyCount > 1) {
-        warnings.push(`Expected one dot (.) in the API key, but found ${dotsInApiKeyCount}. Make sure you've copied the API key correctly.`);
+    if (dotsCount > 1) {
+        warnings.push(`Expected one dot (.) in the token, but found ${dotsCount}. Make sure you've copied the token correctly.`);
     }
     // Check length (typical PAT is around 82 characters)
     if (apiKey.length < 70) {
-        warnings.push(`API key seems too short (${apiKey.length} characters). Personal Access Tokens are typically around 82 characters long. Make sure you've copied the API key correctly.`);
+        warnings.push(`Token seems too short (${apiKey.length} characters). Personal Access Tokens are typically around 82 characters long. Make sure you've copied the token correctly.`);
     }
     else if (apiKey.length > 100) {
-        warnings.push(`API key seems too long (${apiKey.length} characters). Personal Access Tokens are typically around 82 characters long. Make sure you've copied the API key correctly.`);
+        warnings.push(`Token seems too long (${apiKey.length} characters). Personal Access Tokens are typically around 82 characters long. Make sure you've copied the token correctly.`);
     }
     // Check if it looks like an old-style API key (starts with 'key')
     if (apiKey.startsWith('key')) {
-        warnings.push('This appears to be an old-style API key. Please create a Personal Access Token at https://airtable.com/create/tokens instead.');
+        warnings.push('This appears to be a deprecated API key. Please create a Personal Access Token at https://airtable.com/create/tokens instead.');
     }
     return warnings;
 }

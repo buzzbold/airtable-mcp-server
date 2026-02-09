@@ -25,7 +25,7 @@ Keep the token handy, you'll need it in the next step. It should look something 
 
 1. Open Claude Desktop and go to Settings → Extensions
 2. Click 'Browse Extensions' and find 'Airtable MCP Server'
-3. Click 'Install' and paste in your API key
+3. Click 'Install' and paste in your Personal Access Token
 
 #### (Advanced) Alternative: Via manual .mcpb installation
 
@@ -33,14 +33,14 @@ Keep the token handy, you'll need it in the next step. It should look something 
 2. In the 'Artifacts' section, download the `airtable-mcp-server-mcpb` file
 3. Rename the `.zip` file to `.mcpb`
 4. Double-click the `.mcpb` file to open with Claude Desktop
-5. Click "Install" and configure with your API key
+5. Click "Install" and configure with your Personal Access Token
 
 #### (Advanced) Alternative: Via JSON configuration
 
 1. Install [Node.js](https://nodejs.org/en/download)
 2. Open Claude Desktop and go to Settings → Developer
 3. Click "Edit Config" to open your `claude_desktop_config.json` file
-4. Add the following configuration to the "mcpServers" section, replacing `pat123.abc123` with your API key:
+4. Add the following configuration to the "mcpServers" section, replacing `pat123.abc123` with your Personal Access Token:
 
 ```json
 {
@@ -52,7 +52,7 @@ Keep the token handy, you'll need it in the next step. It should look something 
         "airtable-mcp-server"
       ],
       "env": {
-        "AIRTABLE_API_KEY": "pat123.abc123",
+        "AIRTABLE_PAT": "pat123.abc123",
       }
     }
   }
@@ -66,11 +66,11 @@ Keep the token handy, you'll need it in the next step. It should look something 
 #### (Recommended) Via one-click install
 
 1. Click [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=airtable&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwYWlydGFibGUtbWNwLXNlcnZlciUyMiUyQyUyMmVudiUyMiUzQSU3QiUyMkFJUlRBQkxFX0FQSV9LRVklMjIlM0ElMjJwYXQxMjMuYWJjMTIzJTIyJTdEJTdE)
-2. Edit your `mcp.json` file to insert your API key
+2. Edit your `mcp.json` file to insert your Personal Access Token
 
 #### (Advanced) Alternative: Via JSON configuration
 
-Create either a global (`~/.cursor/mcp.json`) or project-specific (`.cursor/mcp.json`) configuration file, replacing `pat123.abc123` with your API key:
+Create either a global (`~/.cursor/mcp.json`) or project-specific (`.cursor/mcp.json`) configuration file, replacing `pat123.abc123` with your Personal Access Token:
 
 ```json
 {
@@ -79,7 +79,7 @@ Create either a global (`~/.cursor/mcp.json`) or project-specific (`.cursor/mcp.
       "command": "npx",
       "args": ["-y", "airtable-mcp-server"],
       "env": {
-        "AIRTABLE_API_KEY": "pat123.abc123"
+        "AIRTABLE_PAT": "pat123.abc123"
       }
     }
   }
@@ -98,7 +98,7 @@ Create either a global (`~/.cursor/mcp.json`) or project-specific (`.cursor/mcp.
 
 1. Click the "MCP Servers" icon in the Cline extension
 2. Click on the "Installed" tab, then the "Configure MCP Servers" button at the bottom
-3. Add the following configuration to the "mcpServers" section, replacing `pat123.abc123` with your API key:
+3. Add the following configuration to the "mcpServers" section, replacing `pat123.abc123` with your Personal Access Token:
 
 ```json
 {
@@ -108,7 +108,7 @@ Create either a global (`~/.cursor/mcp.json`) or project-specific (`.cursor/mcp.
       "command": "npx",
       "args": ["-y", "airtable-mcp-server"],
       "env": {
-        "AIRTABLE_API_KEY": "pat123.abc123"
+        "AIRTABLE_PAT": "pat123.abc123"
       }
     }
   }
